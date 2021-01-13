@@ -1,4 +1,4 @@
 #!/bin/sh
 
-GH_TOKEN=c94a0be749bacb10c7c0c6e3666c1e2ef59c9290 python3 github-url-dork.py -u $1
+GH_TOKEN=$GH_TOKEN python3 github-url-dork.py -u $1
 
