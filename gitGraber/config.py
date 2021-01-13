@@ -1,4 +1,4 @@
-GITHUB_TOKENS = ['21487385b295d2f7e3c1bb2232366ebec2c11143']
+GITHUB_TOKENS = ['GH_TOKEN']
 GITHUB_URL_FILE = 'rawGitUrls.txt'
 GITHUB_API_URL = 'https://api.github.com/search/code?q='
 GITHUB_API_COMMIT_URL = 'https://api.github.com/repos/'
