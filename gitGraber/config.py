@@ -8,6 +8,6 @@ GITHUB_MAX_RETRY = 10
 XDISCORD_WEBHOOKURL = 'https://discordapp.com/api/webhooks/7XXXXXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXX'
 XSLACK_WEBHOOKURL = 'https://hooks.slack.com/services/TXXXXXXXX/BXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXX'
 TELEGRAM_CONFIG = {
-    "token": "1437557225:AAHpOqwOZ4XlapshlXE-f6rbLPazn-RzVec",
-    "chat_id": "CodermakRecon"
+    "token": "1437557225:AAHpOqwOZ4Xlap",
+    "chat_id": "Code"
 }
