@@ -109,6 +109,7 @@ def search(repo_to_search=None,
         # Write CSV Header
         if outputFile:
             outputFile.write('Issue Type (Dork), Text Matches, File Path, Score/Relevance, URL of File\n')
+        matched_data = {}
         for dork in dork_file:
             dork = dork.strip()
             if not dork or dork[0] in '#;':
@@ -119,8 +120,10 @@ def search(repo_to_search=None,
             elif user_to_search:
                 addendum = ' user:' + user_to_search
 
+            only_dork = dork
+            # only_dork = only_dork.replace('.', '-')
             dork = dork + addendum
-            print('--------')
+            print(f'Searching {dork}....')
             #print(dork)
             search_results = search_wrapper(gh.search_code(dork))
             #print('back from search')
@@ -131,24 +134,28 @@ def search(repo_to_search=None,
                     #print(search_result)
                     #print(str(search_result))
                     found = True
-                    fmt_args = {
-                        'dork': dork,
-                        'text_matches': search_result.text_matches,
-                        'path': search_result.path,
-                        'score': search_result.score,
-                        'url': search_result.html_url
-                    }
-
-                    # Either write to file or print output
-                    if outputFile:
-                        outputFile.write('{dork}, {text_matches}, {path}, {score}, {url}\n'.format(**fmt_args))
+                    if only_dork in matched_data:
+                        matched_data[only_dork] += 1
                     else:
-                        result = '\n'.join([
-                            'Found result for {dork}',
-                            'Text matches: {text_matches}', 'File path: {path}',
-                            'Score/Relevance: {score}', 'URL of File: {url}', ''
-                        ]).format(**fmt_args)
-                        print(result)
+                        matched_data[only_dork] = 1
+                    # fmt_args = {
+                    #     'dork': dork,
+                    #     'text_matches': search_result.text_matches,
+                    #     'path': search_result.path,
+                    #     'score': search_result.score,
+                    #     'url': search_result.html_url
+                    # }
+
+                    # # Either write to file or print output
+                    # if outputFile:
+                    #     outputFile.write('{dork}, {text_matches}, {path}, {score}, {url}\n'.format(**fmt_args))
+                    # else:
+                    #     result = '\n'.join([
+                    #         'Found result for {dork}',
+                    #         'Text matches: {text_matches}', 'File path: {path}',
+                    #         'Score/Relevance: {score}', 'URL of File: {url}', ''
+                    #     ]).format(**fmt_args)
+                    #     print(result)
 
             except github.exceptions.GitHubError as e:
                 print('GitHubError encountered on search of dork: ' + dork)
@@ -158,8 +165,13 @@ def search(repo_to_search=None,
                 print(e)
                 print('Error encountered on search of dork: ' + dork)
 
-    if not found:
-        print('No results for your dork search' + addendum + '. Hurray!')
+        print('\n--------------RESULTS------------\n')
+        if not found:
+            print('NO RESULTS FOUND')
+        else:
+            for dork in matched_data:
+                print(f'{dork} => {matched_data[dork]}')
+        print('\n--------------RESULTS------------\n')
 
 
 def main():
