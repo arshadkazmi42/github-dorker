@@ -16,3 +16,4 @@ atlassian.net
 tilda.ws
 createsend.com
 tumblr.com
+digitaloceanspaces.com
